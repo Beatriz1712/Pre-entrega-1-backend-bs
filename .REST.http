@@ -35,7 +35,8 @@ Content-Type: application/json
     
 }
 
-
+###
+PUT http://localhost:8080/api/products/:02
 
 ###
 
