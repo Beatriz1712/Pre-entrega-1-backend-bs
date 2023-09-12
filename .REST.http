@@ -1,0 +1,42 @@
+
+###
+
+POST http://localhost:8080/
+
+###
+
+GET http://localhost:8080/api/users
+
+###
+PUT http://localhost:8080 /api/users /:uid
+###
+POST http://localhost:8080 /api/products /
+
+###
+GET  http://localhost:8080/api/products/
+###
+POST http://localhost:8080/api/products/
+
+
+
+//productos
+###
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+       
+    "title":"producto 1",
+    "description":"description 1",
+    "price":"100",
+    "img":"ruta img",
+    "code":"03",
+    "stock" :"10"
+    
+}
+
+
+
+###
+
+DELETE http://localhost:8080/api/products/01

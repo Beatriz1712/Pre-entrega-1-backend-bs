@@ -1,0 +1,29 @@
+[
+  {
+    "title": "producto 1",
+    "description": "description 1",
+    "price": "100",
+    "img": "ruta img",
+    "code": "01",
+    "stock": "10",
+    "id": 1
+  },
+  {
+    "title": "producto 1",
+    "description": "description 1",
+    "price": "100",
+    "img": "ruta img",
+    "code": "02",
+    "stock": "10",
+    "id": 2
+  },
+  {
+    "title": "producto 1",
+    "description": "description 1",
+    "price": "100",
+    "img": "ruta img",
+    "code": "03",
+    "stock": "10",
+    "id": 3
+  }
+]
