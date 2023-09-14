@@ -3,7 +3,7 @@ import fileSystem from 'node:fs'
 const { promises } = fileSystem
 const fs = promises
 
-export class ProuductManagerFile {  // dao persistencia archivo
+export class ProductManagerFile {  // dao persistencia archivo
     constructor(){
         this.path = './src/files/Products.json'  
     }
@@ -19,25 +19,26 @@ export class ProuductManagerFile {  // dao persistencia archivo
     // devuelve todos los productos
     get = async () => await this.readFileProducts() 
 
-    
+    //traer producto por id
     getById = async (pid)=> {
        const products = await this.readFileProducts()
        if(products.length === 0 ) return 'no hay productos' 
 
-       let product = products.find(product => product.id === pid)
+       const product = products.find(product => product.id === pid)
        if(!product) return 'No se encuentra el producto'
 
        return product
     }
     
     add = async ( { title, description, price, img, code, stock } ) => {
-        if(!title || !description || !price || !img || !code || !stock) return 'ingrese todos los parámetros'
+        if(!title || !description || !price || !img || !code || !stock)
+        return 'ingrese todos los parámetros'
 
         const products = await this.readFileProducts()        
         // console.log(products)
         const productExist = products.findIndex(product => product.code === code) 
 
-        if (productExist !== -1) return 'ya éxiste el producto con ese cód..'
+        if (productExist !== -1) return 'ya éxiste el producto con ese código'
 
         products.push({ title, description, price, img, code, stock, id: products.length + 1 })
 
@@ -48,9 +49,9 @@ export class ProuductManagerFile {  // dao persistencia archivo
     // actualizar
     update = async({pid, ...product}) => {
         let productOld = await this.readProducts()
-        let productsModif = [{...producto, id}, ...productOld]
+        let productsModif = [{...product, id}, ...productOld]
         await fs.writeFile(this.path, JSON.stringify(productsModif))
-        return 'CARRITO ACTUALIZADO'+pid
+        return 'PRODUCTO ACTUALIZADO'+pid
     }
 
     delete = async(pid)=> {

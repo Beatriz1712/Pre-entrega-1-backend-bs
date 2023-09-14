@@ -1,10 +1,10 @@
 import { Router } from "express";
 // 1.importo la clase
-import { ProuductManagerFile } from "../daos/productsManager.js";
+import { ProductManagerFile } from "../daos/productsManager.js";
 
 export const router = Router()
 // 2.instanciar la clase
-export const productService = new ProuductManagerFile
+export const productService = new ProductManagerFile
 let products = []
 
 //manager manipula y router crea rutas =conectan
@@ -16,7 +16,7 @@ router.get('/',async (req, res)=>{
     //console.log(products);
     res.status(200).send({
         status: 'success 😀',
-        payload: []
+        payload: products
     })
 })
 //by id
@@ -31,6 +31,7 @@ router.get('/:pid',async (req, res)=>{
         payload: product
      });
 })
+//POST http://localhost:8080/api/products
 router.post('/',async (req, res) =>{
     const newProduct = req.body
     const result = await productService.add(newProduct)
@@ -42,32 +43,43 @@ router.post('/',async (req, res) =>{
 })
 
 // PUT http://localhost:8080 /api/products /:pid
-router.put('/:pid', (req,res)=>{
-    let productUpdate = req.body
-    let {pid} = req.params
-
-    if (!productUpdate.first_name || !productUpdate.last_name) res.status(400).send({status: 'error', error: 'Datos incompletos'})
-    let productIndex = products.findIndex(product => product.id === Number(pid))
-    if (productIndex === -1) {
-        return res.status(404).send({status: 'error', error: 'Product no found'})
-    }
-    products[productIndex] = {...productUpdate, id: products[productIndex].id}
+router.put('/:pid',async (req,res)=>{
+    const productUpdate =  req.body
+    //const productOld =await productService.put(productUpdate)
+    const {pid} = req.params
+/*
+ if (!productUpdate.title || !productUpdate.description || !productUpdate.price || !productUpdate.img || !productUpdate.code || !productUpdate.stock || !productUpdate.id )
+     res.status(400).send({
+     status: 'error',
+     error: 'Datos incompletos'})
+   */  
+   const productIndex = products.findIndex(product => product.id === Number(pid))
+   /*
+   if (productIndex === -1) {
+       res.status(404).send({
+       status: 'error',
+       error: 'Product no actualizado'})
+    }*/
+  // products[productIndex] = {...productUpdate, id: products[productIndex].id}
     res.send({
-        message: 'post api products',
-         payload: products})
+        message: 'Producto cargado exitosamente',
+        payload: productUpdate})
 })
 // DELETE http://localhost:8080 /api/products
-router.delete('/:pid', (req,res)=>{
-    let {pid} = req.params
+router.delete('/:pid', async(req,res)=>{
+    const product = await productService.get()
+    const {pid} = req.params
     console.log(pid)   
-    let productIndex = products.findIndex(product => product.id === Number(pid))
+    let productIndex = product.findIndex(product => product.id === Number(pid))
     if (productIndex === -1) {
-        return res.status(404).send({status: 'error', error: 'Product no found'})
+        return res.status(404).send({status: 'error', error: 'Producto no encontrado'})
     }
 
-    products = products.filter(product => product.id !== Number(pid))
+   const  producto = product.filter(product => product.id !== Number(pid))
     
-    res.send({message: 'post api products', payload: products})
+    res.send({
+        message: 'Productos guardados', 
+        payload: producto})
 })
 
 export default router 
