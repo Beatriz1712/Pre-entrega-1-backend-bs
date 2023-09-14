@@ -62,7 +62,7 @@ GET  http://localhost:8080/api/carts/
 GET  http://localhost:8080/api/carts/4
 
 ###
-POST http://localhost:8080/api/carts
+POST http://localhost:8080/api/carts/
 Content-Type: application/json
 
 {
@@ -71,7 +71,23 @@ Content-Type: application/json
     "description":"description 12",
     "price":"100",
     "img":"ruta img",
-    "code":"12",
+    "code":"13",
     "stock" :"10"
     
 }
+
+###
+POST http://localhost:8080/api/carts/
+Content-Type: application/json
+
+{
+       
+    "title":"producto 15",
+    "description":"description 15",
+    "price":"100",
+    "img":"ruta img",
+    "code":"15",
+    "stock" :"10"
+    
+}
+

@@ -16,10 +16,24 @@ export class CartsManagerFile{
             return []
         }
     }
+    //para incrementar Id
+    incrementarId(){
+        return this.cartIdCounter++;
+    }
 //crea carrito 
-    create =async () => 
-        await this.readFileProducts();
-       // console.log('creando carrito');
+    create =async () => {
+        const carts = await this.readFileProducts();
+        const carrito = {
+            cid: this.incrementarId(),
+            products:[]
+        }
+        carts.push(carrito);
+        await fs.writeFile(this.path, JSON.stringify(carts, null,2), 'utf-8')
+        return "Carrito creado";
+        
+    }
+        
+       
         
 
 //traer el carrito por id

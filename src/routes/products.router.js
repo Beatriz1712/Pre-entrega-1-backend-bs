@@ -42,7 +42,7 @@ router.post('/',async (req, res) =>{
     })
 })
 
-// PUT http://localhost:8080 /api/products /:pid
+// PUT http://localhost:8080/api/products/:pid
 router.put('/:pid',async (req,res)=>{
     const productUpdate =  req.body
     //const productOld =await productService.put(productUpdate)

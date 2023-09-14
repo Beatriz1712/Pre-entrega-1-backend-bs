@@ -14,6 +14,7 @@ res.status(200).send({
     payload: carts
 })
 })
+
 // GET  http://localhost:8080/api/carts/4
 router.get('/:cid',async (req, res)=>{
     const {cid}= req.params
@@ -25,14 +26,52 @@ router.get('/:cid',async (req, res)=>{
     })
 })
 
-
 router.post('/', async(req, res)=>{
-    const newCart = req.params
-    const result = await cartService.addProductToCart(newCart)
+    const result = await cartService.create()//crea un carrito vacio
     res.status(200).send({
         status: 'success',
         payload: result
     })
 })
+//POST http://localhost:8080/api/carts/:cid
+router.post('/', async (req, res) => {
+
+    const { cid, pid } = req.params;
+    
+    const { title, description, price, img, code, stock } = req.body;
+    
+    if (!title || !description || !price || !img || !code || !stock) {
+    
+    res.status(400).send({
+    
+    status: 'error',
+    message: 'Ingresa todos los parámetros del producto.'});
+    
+    return;
+    
+    }
+    
+    try {
+
+        const result = await cartService.addProductToCart(parseInt(cid), parseInt(pid), {
+         title,description, price,img,code, stock });
+
+        res.status(200).send({
+          status: 'success',
+          payload: result
+
+        });
+
+    } catch (error) {
+
+        res.status(500).send({
+            status: 'error',
+            message: 'Error al agregar el producto al carrito.'
+
+        });
+
+    }
+    
+    });
 
 export default router
