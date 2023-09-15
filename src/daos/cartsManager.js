@@ -17,11 +17,13 @@ export class CartsManagerFile{
             return []
         }
     }
+    /*
     //para incrementar Id
     incrementarId(){
         console.log(this.incrementarId);
         return this.cartIdCounter++;
     }
+    */
     //crea carrito 
     create =async () => {
         const carts = await this.readFileProducts();
@@ -35,7 +37,7 @@ export class CartsManagerFile{
         
     }
       
-    
+
    //traer el carrito por id
     getById = async(cid) =>{
         const carts = await this.readFileProducts()
