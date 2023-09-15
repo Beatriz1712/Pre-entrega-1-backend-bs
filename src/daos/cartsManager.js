@@ -9,37 +9,41 @@ export class CartsManagerFile{
         this.path = './src/files/Products.json'
     }
 
-    readFileProducts = async () => {
+    readFileCarts = async () => {
         try {
-            const productsJson = await fs.readFile(this.path, 'utf-8')
-            return await JSON.parse(productsJson)            
+            const cartsJson = await fs.readFile('./src/files/Carts.json', 'utf-8')
+            return cartsJson ? JSON.parse(cartsJson) : [];         
         } catch (error) {
             return []
         }
     }
-    /*
-    //para incrementar Id
     incrementarId(){
-        console.log(this.incrementarId);
-        return this.cartIdCounter++;
-    }*/
+        return this.cartIdCounter++
+    }
     //crea carrito 
     create =async () => {
-        const carts = await this.readFileProducts();
+        const carts = await this.readFileProduc
+        ts();//ojo
         const carrito = {
             cid: this.incrementarId(),
-            products:[]
+            products: carts//ojo
         }
         carts.push(carrito);
-        await fs.writeFile(this.path, JSON.stringify(carts, null,2), 'utf-8')
+        await fs.writeFile(this.path, JSON.stringify(carts, null, 2), 'utf-8')
         return "Carrito creado";
         
     }
-      
+     //trae tods los carritos
+     get = async () => {
+        const carts = await this.readFileProducts()//pro-cart
+        if(carts.length === 0){ 
+        return 'no hay carritos'}
+        return carts
+     } 
 
    //traer el carrito por id
     getById = async(cid) =>{
-        const carts = await this.readFileProducts()
+        const carts = await this.readFileCarts()
         if(carts.length === 0 ) return 'no hay carrito'
         //console.log('trayendo carrito por id');
         const cart = carts.find(cart => cart.id === cid)
@@ -53,7 +57,7 @@ export class CartsManagerFile{
     addProductToCart = async ( cid, pid) =>{
         try {
         
-        const carts =  await this.readFileProducts() 
+        const carts =  await this.readFileCarts() 
         const cartExist = carts.findIndex(cart => cart.cid === cid) 
         if (cartExist !== -1)
         return 'No se encontró el carrito';

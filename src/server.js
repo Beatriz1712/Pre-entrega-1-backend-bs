@@ -2,8 +2,9 @@
   import {fileURLToPath} from 'url'
   import { dirname } from 'path';
   import cookieParser from 'cookie-parser';
+  import bodyParser from 'body-parser';
 
-  import usersRouter from './routes/users.router.js';
+  //import usersRouter from './routes/users.router.js';
   import productsRouter from './routes/products.router.js';
   import cartsRouter from './routes/carts.router.js'
   
@@ -14,7 +15,7 @@
 
   const app = express()
   const PORT = 8080
-
+  app.use(bodyParser.json())
   app.use(express.static(__dirname + '/public') )
   app.use(cookieParser())
   app.use(express.json())
