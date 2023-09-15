@@ -11,8 +11,8 @@ export class CartsManagerFile{
 
     readFileProducts = async () => {
         try {
-            const cartsJson = await fs.readFile(this.path, 'utf-8')
-            return await JSON.parse(cartsJson)            
+            const productsJson = await fs.readFile(this.path, 'utf-8')
+            return await JSON.parse(productsJson)            
         } catch (error) {
             return []
         }
@@ -22,8 +22,7 @@ export class CartsManagerFile{
     incrementarId(){
         console.log(this.incrementarId);
         return this.cartIdCounter++;
-    }
-    */
+    }*/
     //crea carrito 
     create =async () => {
         const carts = await this.readFileProducts();
