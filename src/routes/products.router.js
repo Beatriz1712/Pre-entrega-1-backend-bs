@@ -54,12 +54,12 @@ router.put('/:pid',async (req,res)=>{
      error: 'Datos incompletos'})
    */  
    const productIndex = products.findIndex(product => product.id === Number(pid))
-   /*
+   
    if (productIndex === -1) {
        res.status(404).send({
        status: 'error',
        error: 'Product no actualizado'})
-    }*/
+    }
   // products[productIndex] = {...productUpdate, id: products[productIndex].id}
     res.send({
         message: 'Producto cargado exitosamente',

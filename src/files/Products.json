@@ -52,5 +52,27 @@
     "code": "12",
     "stock": "10",
     "id": 6
+  },
+  {
+    "title": "producto 8",
+    "description": "description 1",
+    "price": "100",
+    "img": "ruta img",
+    "code": "08",
+    "stock": "10",
+    "id": 7
+  },
+  {
+    "cid": null,
+    "products": []
+  },
+  {
+    "title": "producto 8",
+    "description": "description 1",
+    "price": "100",
+    "img": "ruta img",
+    "code": "50",
+    "stock": "50",
+    "id": 9
   }
 ]

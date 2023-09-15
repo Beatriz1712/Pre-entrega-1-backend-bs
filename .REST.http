@@ -21,18 +21,19 @@ POST http://localhost:8080/api/products/
 
 
 //productos
+
 ###
 POST http://localhost:8080/api/products
 Content-Type: application/json
 
 {
        
-    "title":"producto 1",
+    "title":"producto 8",
     "description":"description 1",
     "price":"100",
     "img":"ruta img",
-    "code":"04",
-    "stock" :"10"
+    "code":"50",
+    "stock" :"50"
     
 }
 
@@ -59,21 +60,18 @@ DELETE http://localhost:8080/api/products/1
 GET  http://localhost:8080/api/carts/
 
 ###
-GET  http://localhost:8080/api/carts/4
+GET  http://localhost:8080/api/carts/1
+###
+POST  http://localhost:8080/api/carts/
 
 ###
 POST http://localhost:8080/api/carts/
 Content-Type: application/json
 
-{
-       
-    "title":"producto 12",
-    "description":"description 12",
+{     
+    "title":"carrito 13",
     "price":"100",
-    "img":"ruta img",
-    "code":"13",
-    "stock" :"10"
-    
+    "code":"13"   
 }
 
 ###
@@ -81,13 +79,12 @@ POST http://localhost:8080/api/carts/
 Content-Type: application/json
 
 {
-       
-    "title":"producto 15",
-    "description":"description 15",
+    "title":"producto 15", 
     "price":"100",
-    "img":"ruta img",
-    "code":"15",
-    "stock" :"10"
-    
+    "code":"15"  
 }
+###
+ 
+ POST http://localhost:8080/api/carts/
 
+//router.post('/:cid/product/:pid'

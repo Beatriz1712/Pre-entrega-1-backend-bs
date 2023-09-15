@@ -32,7 +32,7 @@ export class ProductManagerFile {  // dao persistencia archivo
     
     add = async ( { title, description, price, img, code, stock } ) => {
         if(!title || !description || !price || !img || !code || !stock)
-        return 'ingrese todos los parámetros'
+         return 'ingrese todos los parámetros'
 
         const products = await this.readFileProducts()        
         // console.log(products)
