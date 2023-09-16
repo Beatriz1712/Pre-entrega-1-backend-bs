@@ -1,78 +1,30 @@
 import { Router } from 'express'
 import { CartsManagerFile } from '../daos/cartsManager.js'
+import ProductManagerFile from '../daos/productsManager.js'
 
 export const router = Router()
-export const cartService = new CartsManagerFile
+export const cartManager = new CartsManagerFile()
+export const productManager = new ProductManagerFile()
 
-const carts = []
-let lastId = 0
-
-// GET  http://localhost:8080/api/carts/
-router.get('/',async (req, res)=>{
-//const carts =  cartService.get
-res.status(200).send({
-    status: 'success 😁',
-    payload: carts
+router.post('/', (req, resp) => {
+	let status = cartManager.createNewCart()
+	if (status[0]) return resp.status(200).send(`Se ha creado el carrito con id ${status[1]}`)
 })
+router.get('/:cid', (req, resp) => {
+	let cid = Number (req.params.cid)
+	let exists = cartManager.cartExists(cid)
+	if (exists === false) return resp.status(400).send(`No existe el carrito con id ${cid}`)
+	let status = cartManager.getCartProducts(cid)
+	if (!status) return resp.status(400).send("No hay productos en el carrito")
+	else return resp.status(200).send(status)
 })
-
-//POST  http://localhost:8080/api/carts/
-router.post('/', (req,res) => {
-    
-    function generateId() {
-        return (++lastId).toString()   
-    }
-    const cart = {
-        id: generateId(), 
-        products: []//ojo
-    }
-    //console.log(cart.id),
-    carts.push(cart);
-    console.log(carts);
-    res.status(200).json(cart);
-});
-
-// GET  http://localhost:8080/api/carts/4
-router.get('/:cid',async (req, res)=>{
-    const {cid}= req.params
-    const cart = await cartService.getById(parseInt(cid))
-    res.status(200).send({
-        status: 'success ',
-        payload: cart
-
-    })
+router.post('/:cid/product/:pid', (req, resp) => {
+	let cid = Number (req.params.cid), pid = Number (req.params.pid)
+	let exists = cartManager.cartExists(cid)
+	if (exists === false) return resp.status(400).send(`No existe el carrito con id ${cid}`)
+	let product = productManager.getProductByID(pid)
+	if (!product) return resp.status(400).send(`No existe el producto con id ${pid}`)
+	let status = cartManager.addProductToCart(cid, product.id)
+	if (status) return resp.status(200).send(`Se añadio el producto con id ${pid} al carrito`)
 })
-
-//POST(‘/:cid/adProductToCart/:pid’
-//POST http://localhost:8080/api/carts/1/12
-router.post('/:cid/addProductToCart/:pid', async (req, res) => {
-
-    const { cid, pid } = req.params;
-    const { title, description, price, img, code, stock } = req.body;
-    if (!title || !description || !price || !img || !code || !stock) {
-       res.status(400).send({
-            status: 'error',
-            message: 'Ingresa todos los parámetros del producto.'
-        });
-        return;
-    }
-    try {
-        const result = await cartService.addProductToCart(parseInt(cid), parseInt(pid), {
-            title, description, price, img, code, stock
-        });
-          res.status(200).send({
-            status: 'success',
-            payload: result
-        });
-
-    } catch (error) {
-
-        res.status(500).send({
-            status: 'error',
-            message: 'Error al agregar el producto al carrito.'
-         });
-     }
-
-});
-
-export default router
+export default router;
