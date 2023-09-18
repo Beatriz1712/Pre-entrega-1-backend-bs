@@ -22,10 +22,10 @@
   app.use(express.urlencoded({extended:true}) )//para q tome formato json
  
   //defino las rutas - configuro  END POINT
-// GET http://localhost:8080 /api/users 
+// GET http://localhost:8080 /api/users
 app.use('/api/users', usersRouter)
 app.use('/api/products', productsRouter)
-app.use('/api/carts', cartsRouter) 
+app.use('/api/carts', cartsRouter)  
   
   app.listen(PORT, () =>{
     console.log(`Escuchando puerto ${PORT}`);

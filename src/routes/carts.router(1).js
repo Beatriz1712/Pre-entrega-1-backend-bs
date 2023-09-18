@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
 router.get('/:cid', (req, res) => {
 	const cid = req.params.cid
 	const cart = cartManager.getCartProducts(cid)
-	if (cart === false) return resp.status(400).send(`No existe el carrito con id ${cid}`)
+	if (cart === false) return res.status(400).send(`No existe el carrito con id ${cid}`)
 	return res.status(200).send(cart)
 
 	

@@ -12,15 +12,12 @@ GET http://localhost:8080/api/users
 PUT http://localhost:8080/api/users/:uid
 ###
 
-
+//productos
 ###
-GET  http://localhost:8080/api/products/
+GET  http://localhost:8080/api/products/7
 ###
 POST http://localhost:8080/api/products/
 
-
-
-//productos
 
 ###
 POST http://localhost:8080/api/products

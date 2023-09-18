@@ -1,47 +1,51 @@
-import fileSystem from 'node:fs'
+import fs from 'fs/promises';
 
-const { promises } = fileSystem
-const fs = promises
+//import fileSystem from 'node:fs'
+
+//const { promises } = fileSystem
+//const fs = promises
 
 export class ProductManagerFile {  
     #products
     constructor(){
-        this.path = './src/files/Products.txt'
-        this.#products = this.loadFile() 
-    }
-    /*
-    readFileSync =  () => {
-      
-          const productsJson = fs.readFile(this.path, 'utf-8')
-          return  JSON.parse(productsJson) 
-      } 
-     */     
-      
+        this.path ='./src/files/Products.json'
+        this.loadFile() 
+    }    
   
-      loadFile = () => {
-        const data = JSON.parse(fs.readFileSync(this.path,  "utf-8"))
-        if (data) return data
-        else return []
+   
+    loadFile = async () => {
+      try {
+          const fileContent = await fs.readFile(this.path, "utf-8");
+          const data = JSON.parse(fileContent);
+         // Inicializa como un objeto JSON vacío si es nulo
+         if(Array.isArray(data)) this.#products = data
+         else this.#products = []
+      } catch (err) {
+          console.log(err);
+          return {}; // Devuelve un objeto JSON vacío en caso de error
       }
-      updateFile = () => {
-        fs.writeFileSync(this.path, JSON.stringify(this.#products, null, '\t'), (err) => {
-          if (err){
+  }
+  
+
+  updateFile = () => {
+      try {
+          fs.writeFile(this.path, JSON.stringify(this.#products, null, '\t'))
+          console.log(fs.readFile(this.path, "utf-8"))
+      } catch (err) {
           console.log(err)
-          } else {
-          console.log(fs.readFileSync(this.path, "utf-8"))
-          }
-        })
       }
-      #generateID = () => {
+  }
+
+  #generateID = () => {
         let id
         if (this.#products.length === 0) id = 1
         else id = this.#products[this.#products.length - 1].id + 1
         return id
       }
-      getProducts = () => {
+  getProducts = () => {
         return this.#products
       }
-      addProduct = (title, description, price, thumbnails, code, stock, status, category) => {
+  addProduct = (title, description, price, thumbnails, code, stock, status, category) => {
         if (thumbnails == undefined) thumbnails = [""]
         let id = this.#generateID()
         let newProduct = {
@@ -56,15 +60,15 @@ export class ProductManagerFile {
           return false
         }
       }
-      getProductByID = (id) => {
-        let index = this.#products.findIndex( item => item.id === id)
-        if (index === -1){
-          return false
+  getProductByID = (id) => {
+        const prod = this.#products.find( item => item.id == id)
+        if (prod){
+          return prod 
         } else {
-          return this.#products[index]
+          return console.log(`No existe el producto con id ${id}`)
         }
       } 
-      updateProductByID = (id, newProperties) => {
+  updateProductByID = (id, newProperties) => {
         if (!this.#products.some( p => p.id === id)){
           return false
         } else {
@@ -74,7 +78,7 @@ export class ProductManagerFile {
           return true
         }
       }
-      deleteProduct = (id) => {
+  deleteProduct = (id) => {
         if (!this.#products.some( p => p.id == id)){
           return false
         } else {
@@ -85,5 +89,5 @@ export class ProductManagerFile {
         }
       }
     }
-    export default ProductManagerFile
+  export default ProductManagerFile
   
