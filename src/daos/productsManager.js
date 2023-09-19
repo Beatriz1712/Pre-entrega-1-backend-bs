@@ -45,11 +45,11 @@ export class ProductManagerFile {
   getProducts = () => {
         return this.#products
       }
-  addProduct = (title, description, price, thumbnails, code, stock, status, category) => {
-        if (thumbnails == undefined) thumbnails = [""]
+  addProduct = (title, description, price, img, code, stock) => {
+        if (img == undefined) img = [""]
         let id = this.#generateID()
         let newProduct = {
-          id, title, description, price, thumbnails, code, stock, status, category
+           title, description, price, img, code, stock, id
         }
         if (!this.#products.some( el => el.code === code)){
           this.#products.push(newProduct)

@@ -1,5 +1,5 @@
 
-
+//USUARIOS
 ###
 
 POST http://localhost:8080/
@@ -12,12 +12,10 @@ GET http://localhost:8080/api/users
 PUT http://localhost:8080/api/users/:uid
 ###
 
-//productos
+//PRODUCTOS
 ###
-GET  http://localhost:8080/api/products/7
+GET  http://localhost:8080/api/products/4
 ###
-POST http://localhost:8080/api/products/
-
 
 ###
 POST http://localhost:8080/api/products
@@ -25,17 +23,17 @@ Content-Type: application/json
 
 {
        
-    "title":"producto 8",
-    "description":"description 1",
+    "title":"producto 12",
+    "description":"description 12",
     "price":"100",
     "img":"ruta img",
-    "code":"50",
+    "code":"19",
     "stock" :"50"
     
 }
 
 ###
-PUT http://localhost:8080/api/products/1
+PUT http://localhost:8080/api/products/8
 Content-Type: application/json
 
 {
@@ -50,25 +48,21 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/api/products/1
+DELETE http://localhost:8080/api/products/7
 
-//Carrito
+//CARRITO
 ###
-GET  http://localhost:8080/api/carts/
+GET  http://localhost:8080/api/carts/10
 
-###
-GET  http://localhost:8080/api/carts/2
-###
-POST  http://localhost:8080/api/carts/
 
 ###
 POST http://localhost:8080/api/carts/
 Content-Type: application/json
 
 {     
-    "title":"carrito 13",
+    "title":"carrito 14",
     "price":"100",
-    "code":"13"   
+    "code":"14"   
 }
 
 ###
@@ -80,8 +74,6 @@ Content-Type: application/json
     "price":"100",
     "code":"15"  
 }
-###
- 
- POST http://localhost:8080/api/carts/
+
 
 //router.post('/:cid/product/:pid'

@@ -45,13 +45,13 @@ router.get('/:pid', (req, res)=>{
 })
 //POST http://localhost:8080/api/products
 router.post('/', (req, res) =>{
-    let { title, description, code, price, stock, category, thumbnails } = req.query
+    let { title, description, code, price, stock, img } = req.body
 	price = Number (price), stock = Number (stock)
 	let productStatus = true
-	if (!title || !description || !code || !price || !stock || !category){
+	if (!title || !description || !code || !price || !stock || !img){
 		res.status(400).send("No se han completado todos los campos obligatorios")
 	}
-	let addStatus = productManager.addProduct(title, description, price, thumbnails, code, stock, productStatus, category)
+	let addStatus = productManager.addProduct(title, description, price, img, code, stock, productStatus )
 	if (addStatus) res.status(201).send("Producto creado con exito")
 	else res.status(400).send(`Ya existe un producto con code ${code}`) 
    /*
@@ -81,7 +81,7 @@ router.put('/:pid', (req, res) => {
 router.delete('/:pid', (req, res) => {
 	let pid = Number (req.params.pid)
 	let status = productManager.deleteProduct(pid)
-	if (status) resp.status(200).send(`Producto eliminado con exito`)
+	if (status) res.status(200).send(`Producto eliminado con exito`)
 	else res.status(400).send(`No existe un producto con id ${pid}`)
 })
 export default router
